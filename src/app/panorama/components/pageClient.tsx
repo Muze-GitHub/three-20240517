@@ -1,4 +1,5 @@
 'use client'
+import Head from 'next/head'
 import { useRef, useEffect } from 'react'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
@@ -79,7 +80,14 @@ const EnvironmentMap = () => {
     window.addEventListener('resize', onResize, false)
   }, [])
 
-  return <div ref={renderRef} />
+  return (
+    <>
+      <Head>
+        <title>My Page Title</title>
+      </Head>
+      <div ref={renderRef} />
+    </>
+  )
 }
 
 export default EnvironmentMap
