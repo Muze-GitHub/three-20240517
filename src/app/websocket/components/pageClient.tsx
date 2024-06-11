@@ -48,10 +48,11 @@ const WebScoetPage = () => {
     }
   }, [])
 
-  const sendMessage = () => {
+  const sendMessage = (e: InputEvent) => {
+    console.log(e)
     if (socketRef.current && socketRef.current.readyState === WebSocket.OPEN) {
       socketRef.current.send(inputRef.current!.value)
-      // inputRef.current!.value = ''
+      inputRef.current!.value = ''
     } else {
       console.log('WebSocket 连接未建立或已关闭')
     }
