@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@hocuspocus/provider": "^2.13.0",
+    "@sentry/nextjs": "^8",
     "@tiptap/extension-collaboration": "^2.4.0",
     "@tiptap/extension-document": "^2.4.0",
     "@tiptap/extension-paragraph": "^2.4.0",

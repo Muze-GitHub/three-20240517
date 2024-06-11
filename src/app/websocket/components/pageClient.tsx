@@ -1,5 +1,5 @@
 'use client'
-
+import * as Sentry from '@sentry/nextjs'
 import { useEffect, useRef } from 'react'
 
 const WebScoetPage = () => {
@@ -7,6 +7,7 @@ const WebScoetPage = () => {
   const inputRef = useRef<null | HTMLTextAreaElement>(null)
 
   useEffect(() => {
+    Sentry.captureMessage('代码报错啦')
     const Socket = new WebSocket('ws://localhost:8080')
     socketRef.current = Socket
 
