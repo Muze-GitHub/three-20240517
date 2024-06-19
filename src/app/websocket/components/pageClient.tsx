@@ -2,7 +2,7 @@
 import * as Sentry from '@sentry/nextjs'
 import { useEffect, useRef } from 'react'
 
-const WebScoetPage = () => {
+const WebSocketPage = () => {
   const socketRef = useRef<null | WebSocket>(null)
   const inputRef = useRef<null | HTMLTextAreaElement>(null)
 
@@ -81,4 +81,4 @@ const WebScoetPage = () => {
   )
 }
 
-export default WebScoetPage
+export default WebSocketPage
