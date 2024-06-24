@@ -27,9 +27,9 @@
 
 ## 伪 3D 模型 汽车 - 图片模型
 
--- 路由 [/car]
--- 介绍: 利用 30 多张多角度多平面图，在鼠标位移的情况下更换图片的显示，实现 3D 效果。
--- 参考链接 [https://m.dongchedi.com/auto/series/6187/images-wg]
--- 实现逻辑: 首先将所有图片定位到同一个位置，只显示第一张图片，并设置两个变量 currentIndex = 0 和 carPositionX = 0 ，其他的 opacity 设置为 0 ，利用 touchStart 和 touchMove 事件，记录初始的位置 clientX 和 移动后的 clientX ，如果两个相减大于设定的阈值，那就是向右移动，将 currentIndex 加一，如果 currentIndex 超出图片数量，则 currentIndex = 0。
+- 路由 [/car]
+- 介绍: 利用 30 多张多角度多平面图，在鼠标位移的情况下更换图片的显示，实现 3D 效果。
+- 参考链接 [https://m.dongchedi.com/auto/series/6187/images-wg]
+- 实现逻辑: 首先将所有图片定位到同一个位置，只显示第一张图片，并设置两个变量 currentIndex = 0 和 carPositionX = 0 ，其他的 opacity 设置为 0 ，利用 touchStart 和 touchMove 事件，记录初始的位置 clientX 和 移动后的 clientX ，如果两个相减大于设定的阈值，那就是向右移动，将 currentIndex 加一，如果 currentIndex 超出图片数量，则 currentIndex = 0。
 
 [![效果展示](https://cdn.jsdelivr.net/gh/Muze-GitHub/three-20240517/public/car/1.webp)](https://cdn.jsdelivr.net/gh/Muze-GitHub/three-20240517/public/car/car.mov)
