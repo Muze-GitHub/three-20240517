@@ -33,3 +33,8 @@
 - 实现逻辑: 首先将所有图片定位到同一个位置，只显示第一张图片，并设置两个变量 currentIndex = 0 和 carPositionX = 0 ，其他的 opacity 设置为 0 ，利用 touchStart 和 touchMove 事件，记录初始的位置 clientX 和 移动后的 clientX ，如果两个相减大于设定的阈值，那就是向右移动，将 currentIndex 加一，如果 currentIndex 超出图片数量，则 currentIndex = 0。
 
 [![效果展示](https://cdn.jsdelivr.net/gh/Muze-GitHub/three-20240517/public/car/1.webp)](https://cdn.jsdelivr.net/gh/Muze-GitHub/three-20240517/public/car/car.mov)
+
+## React Hooks
+
+- 路由 [/hooks]
+- 介绍 参考 ahooks[https://ahooks.js.org/zh-CN/hooks/use-virtual-list/#usevirtuallist-demo1]自主实现的 hooks
