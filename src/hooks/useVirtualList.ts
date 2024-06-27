@@ -1,17 +1,12 @@
-// import { useState } from 'react'
+import { useState } from 'react'
 
-// type CounterActions = {
-//   inc: () => void
-//   dec: () => void
-//   set: (number?: number) => void
-//   reset: (number?: number) => void
-// }
+type VirtualListActions = {
+  inc: () => void
+  dec: () => void
+  set: (number?: number) => void
+  reset: (number?: number) => void
+}
 
-// const useVirtualList = (
-//   initValue: number,
-//   { min, max }: { min: number; max: number }
-// ): [number, CounterActions] => {
+const useVirtualList = () => {}
 
-// }
-
-// export default useVirtualList
+export default useVirtualList

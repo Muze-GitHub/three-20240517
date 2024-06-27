@@ -13,21 +13,51 @@ const Hooks = () => {
   const itemHeight = 60 //一个item的高度
   const itemMarginBottom = 10 //一个item的margin-bottom
   const itemAllHeight = itemHeight + itemMarginBottom
-  const moreItem = 1 //列表上下预留的 item 数量
+  const moreItem = 0 //列表上下预留的 item 数量
   const ArrayNumber = 100 //数据数量
+
+  // const ArrayHeight = new Array(ArrayNumber).fill('')
+  //如果是不定高的情况下，利用一个数组对象存储高度数据，每个对象有两个 key,分别是 item 的高度 height 和距离上面的距离
+  // const ArrayHeight = [{height:60,top:0},{height:61,top:60},{height:39,top:121}]
+  const ArrayHeight = [
+    { height: 60, top: 0 },
+    { height: 61, top: 0 },
+    { height: 39, top: 0 },
+    { height: 49, top: 0 },
+    { height: 59, top: 0 },
+    { height: 69, top: 0 },
+    { height: 69, top: 0 },
+    { height: 69, top: 0 },
+    { height: 60, top: 0 },
+    { height: 69, top: 0 },
+    { height: 69, top: 0 },
+    { height: 69, top: 0 }
+  ]
+  for (let index = 1; index < ArrayHeight.length; index++) {
+    ArrayHeight[index].top =
+      ArrayHeight[index - 1].top + ArrayHeight[index - 1].height
+  }
 
   const GetScrollIndex = () => {
     const container = containerRef.current
     if (!container) return
 
     const scrollTop = containerRef.current!.scrollTop
-    let startIndex = Math.floor(scrollTop / itemAllHeight) - moreItem
-    if (startIndex < 0) startIndex = 0
     const containerHeight = container!.clientHeight
-    const endIndex =
-      Math.floor((scrollTop + containerHeight) / itemAllHeight) + moreItem
+    // 1. 定高的情况
+    // let startIndex = Math.floor(scrollTop / itemAllHeight) - moreItem
+    // if (startIndex < 0) startIndex = 0
+    // const endIndex =
+    //   Math.floor((scrollTop + containerHeight) / itemAllHeight) + moreItem
+    // 2. 不定高的情况
+    let startIndex =
+      ArrayHeight.findIndex((i) => i.top >= scrollTop) - 1 - moreItem
+    if (startIndex < 0) startIndex = 0
+    let endIndex =
+      ArrayHeight.findIndex((i) => i.top >= scrollTop + containerHeight) +
+      moreItem
+    if (endIndex === -1) endIndex = ArrayHeight.length - 1
     setScrollOptions({ startIndex, endIndex })
-    console.log({ startIndex, endIndex })
   }
 
   useEffect(() => {
@@ -36,6 +66,7 @@ const Hooks = () => {
 
   return (
     <div className="text-center h-screen overflow-hidden">
+      {/* useCounter */}
       <div className=" p-7 border-solid border-white border-[1px] m-[20px]">
         <p className="text-[32px]">useCounter</p>
         <p className="text-[32px]">{count}</p>
@@ -64,6 +95,7 @@ const Hooks = () => {
           reset
         </button>
       </div>
+      {/* useVirtualList */}
       <div className=" p-7 border-solid border-white border-[1px] m-[20px]">
         <p className="text-[32px]">useVirtualList</p>
         <div
@@ -72,8 +104,9 @@ const Hooks = () => {
           ref={containerRef}
           onScroll={GetScrollIndex}
         >
-          <div style={{ height: itemAllHeight * scrollOptions.startIndex }} />
-          {new Array(ArrayNumber).fill('').map((_, index) => {
+          {/* <div style={{ height: itemAllHeight * scrollOptions.startIndex }} /> */}
+          <div style={{ height: ArrayHeight[scrollOptions.startIndex].top }} />
+          {ArrayHeight.map((item, index) => {
             if (
               index >= scrollOptions.startIndex &&
               index <= scrollOptions.endIndex
@@ -83,7 +116,8 @@ const Hooks = () => {
                   key={index}
                   id={`item-${index}`}
                   className=" w-full border-[1px] border-solid flex  justify-center items-center"
-                  style={{ height: itemHeight, marginBottom: itemMarginBottom }}
+                  // style={{ height: itemHeight, marginBottom: itemMarginBottom }}
+                  style={{ height: item.height }}
                 >
                   index {index}
                 </div>
@@ -92,9 +126,16 @@ const Hooks = () => {
           })}
           <div
             style={{
-              height: itemAllHeight * (ArrayNumber - scrollOptions.endIndex)
+              height:
+                ArrayHeight[ArrayHeight.length - 1].top -
+                ArrayHeight[scrollOptions.endIndex].top
             }}
           />
+          {/* <div
+            style={{
+              height: itemAllHeight * (ArrayNumber - scrollOptions.endIndex)
+            }}
+          /> */}
         </div>
       </div>
     </div>
