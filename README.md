@@ -37,6 +37,15 @@
 ## React Hooks
 
 - 路由 [/hooks]
-- 介绍 参考 ahooks[https://ahooks.js.org/zh-CN/hooks/use-virtual-list/#usevirtuallist-demo1]自主实现的 hooks
+- 介绍: 参考 ahooks[https://ahooks.js.org/zh-CN/hooks/use-virtual-list/#usevirtuallist-demo1]自主实现的 hooks
 - 1.useCounter
 - 2.useVirtualList(暂未抽离为 hook)
+
+## 瀑布流布局
+
+- 路由 [/waterfall]
+- 介绍 仿造小红书实现的瀑布流布局，通过定位和 transform 的方式实现这种优雅的布局，最终应用到了魅族社区。
+- 参考链接 [https://www.xiaohongshu.com/explore]
+- 实现逻辑: 通过屏幕宽度定义瀑布流有多少列 cols，创建一个初始数组，长度为 cols，每个元素为 0，用来存放每一列的高度。通过在瀑布流容器上定义一个 ref，通过容器 dom 获取到子元素合集 HTMLCollection，因为这是一个伪数组，所以需要通过 Array.form 来转为常规数组进行操作，然后通过 forEach 遍历这个子元素数组，子元素 child 的 top 就是高度数组里最小的值 加上 gap 【columnHeight[colum] + gap】， 而向左的距离 left 就是第几列加上 gap【(cardWidth + gap) \* colum】，最后要给高度数组填充回帖子高度。
+
+[![效果展示](https://cdn.jsdelivr.net/gh/Muze-GitHub/three-20240517/public/image/waterfall.jpg)](https://cdn.jsdelivr.net/gh/Muze-GitHub/three-20240517/public/image/waterfall.jpg)

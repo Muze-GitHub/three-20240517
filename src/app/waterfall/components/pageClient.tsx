@@ -14,7 +14,7 @@ const WaterFall = () => {
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve(article)
-      }, 1000)
+      }, 500)
     })
   }
 
@@ -27,13 +27,36 @@ const WaterFall = () => {
     articleData.forEach((item: any, index: number) => {
       item.note_card.cover.url_default = index % 2 === 0 ? imageUrl : imageUrl2
     })
-    console.log(articleData)
-    setData(articleData)
+    setData((prevData: any) => prevData.concat(articleData))
   }
 
-  const ScrollFn = () => {
-    console.log(window.scrollY)
+  //节流
+  const throttle = (fn: any, delay: number) => {
+    let lastTime: any = null
+    return function (...args: any) {
+      const now = new Date().getTime()
+      if (now - lastTime >= delay) {
+        fn(...args)
+        lastTime = now
+      }
+    }
   }
+
+  //滚动到底部事件
+  const ScrollFn = () => {
+    console.log(window.scrollY, window.innerHeight)
+    console.log(document.documentElement.scrollHeight)
+    const limitHeight = 200
+    const scrollY = window.scrollY
+    const innerHeight = window.innerHeight
+    const documentHight = document.documentElement.scrollHeight
+    if (documentHight - (scrollY + innerHeight) <= limitHeight) {
+      console.log('----加载更多数据----')
+      getData()
+    }
+  }
+
+  const throttleScrollFn = throttle(ScrollFn, 100)
 
   //计算布局函数
   const calculatePositions = () => {
@@ -69,9 +92,10 @@ const WaterFall = () => {
     calculatePositions()
 
     window.addEventListener('resize', calculatePositions)
-    window.document.addEventListener('scroll', ScrollFn)
+    window.document.addEventListener('scroll', throttleScrollFn)
     return () => {
       window.removeEventListener('resize', calculatePositions)
+      window.document.removeEventListener('scroll', throttleScrollFn)
     }
   }, [])
 
